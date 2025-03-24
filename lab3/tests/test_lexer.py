@@ -53,13 +53,12 @@ class TestLexer(unittest.TestCase):
         expression = "sin(45) + 3.14 * cos(90) / sqrt(2)"
         tokens = tokenize(expression)
         
-        # You can add more detailed assertions here
         self.assertEqual(len(tokens), 16)
 
     
     def test_error_handling(self):
         with self.assertRaises(Exception):
-            tokenize("sin(45) @ 3.14")  # @ is not a valid character
+            tokenize("sin(45) @ 3.14")  
     
     def test_advanced_tokens(self):
         code = "if (x <= 10) { y = x * 2; }"
