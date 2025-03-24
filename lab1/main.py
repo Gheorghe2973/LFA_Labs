@@ -36,7 +36,7 @@ class Grammar:
             ("B", "c"): "Final",
         }
         q0 = "S" 
-        F = {"Final"}  
+        F = {"Final"} 
         return FiniteAutomaton(Q, Sigma, delta, q0, F)
 
 class FiniteAutomaton:

@@ -47,7 +47,7 @@ class Lexer:
         
         while self.current_char is not None and (self.current_char.isdigit() or self.current_char == '.'):
             if self.current_char == '.':
-                if is_float:  # Second decimal point is not allowed
+                if is_float:  
                     self.error()
                 is_float = True
             result += self.current_char
@@ -66,11 +66,9 @@ class Lexer:
             result += self.current_char
             self.advance()
         
-        # Check for built-in functions
         if result in self.functions:
             return Token(TOKEN_FUNCTION, result)
         
-        # Check for keywords
         if result.lower() == 'if':
             return Token(TOKEN_IF, result)
         elif result.lower() == 'else':
@@ -93,20 +91,16 @@ class Lexer:
         """Lexical analyzer - breaks input into tokens."""
         while self.current_char is not None:
             
-            # Skip whitespace
             if self.current_char.isspace():
                 self.skip_whitespace()
                 continue
             
-            # Numbers
             if self.current_char.isdigit() or self.current_char == '.':
                 return self.number()
             
-            # Identifiers and keywords
             if self.current_char.isalpha() or self.current_char == '_':
                 return self.identifier()
             
-            # Multi-character operators (==, !=, <=, >=, etc.)
             if self.current_char == '=':
                 if self.peek() == '=':
                     self.advance()  # consume first '='
@@ -215,10 +209,8 @@ class Lexer:
                 self.advance()
                 return Token(TOKEN_DOT, '.')
             
-            # If we get here, we have an unrecognized character
             self.error()
         
-        # End of input
         return Token(TOKEN_EOF, None)
 
 
