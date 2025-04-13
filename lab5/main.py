@@ -185,7 +185,7 @@ def main():
         'D': []
     }
     s = 'S'
-
+ 
     grammar = Grammar(vn, vt, p, s)
 
     print("Original Grammar:")
