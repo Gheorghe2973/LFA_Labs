@@ -1,9 +1,7 @@
 class ASTNode:
-    """Base class for all AST nodes"""
     pass
 
 class BinaryOpNode(ASTNode):
-    """Node representing a binary operation (e.g., +, -, *, /)"""
     def __init__(self, left, op, right):
         self.left = left
         self.token = self.op = op
@@ -13,7 +11,6 @@ class BinaryOpNode(ASTNode):
         return f"({self.left} {self.op.value} {self.right})"
 
 class UnaryOpNode(ASTNode):
-    """Node representing a unary operation (e.g., -, not)"""
     def __init__(self, op, expr):
         self.token = self.op = op
         self.expr = expr
@@ -22,7 +19,6 @@ class UnaryOpNode(ASTNode):
         return f"{self.op.value}({self.expr})"
 
 class NumberNode(ASTNode):
-    """Node representing a numeric literal (integer or float)"""
     def __init__(self, token):
         self.token = token
         self.value = token.value
@@ -31,7 +27,6 @@ class NumberNode(ASTNode):
         return str(self.value)
 
 class VariableNode(ASTNode):
-    """Node representing a variable reference"""
     def __init__(self, token):
         self.token = token
         self.name = token.value
@@ -40,7 +35,6 @@ class VariableNode(ASTNode):
         return self.name
 
 class AssignNode(ASTNode):
-    """Node representing variable assignment"""
     def __init__(self, left, op, right):
         self.left = left
         self.token = self.op = op
@@ -50,7 +44,6 @@ class AssignNode(ASTNode):
         return f"{self.left} {self.op.value} {self.right}"
 
 class FunctionCallNode(ASTNode):
-    """Node representing a function call"""
     def __init__(self, name_token, args=None):
         self.token = name_token
         self.name = name_token.value
@@ -60,7 +53,6 @@ class FunctionCallNode(ASTNode):
         return f"{self.name}({', '.join(str(arg) for arg in self.args)})"
 
 class CompoundNode(ASTNode):
-    """Node representing a compound statement (block of code)"""
     def __init__(self, statements=None):
         self.children = statements if statements else []
     
@@ -68,7 +60,6 @@ class CompoundNode(ASTNode):
         return "{\n" + "\n".join([str(stmt) for stmt in self.children]) + "\n}"
 
 class IfNode(ASTNode):
-    """Node representing an if statement"""
     def __init__(self, condition, body, else_body=None):
         self.condition = condition
         self.body = body
@@ -81,7 +72,6 @@ class IfNode(ASTNode):
         return result
 
 class WhileNode(ASTNode):
-    """Node representing a while loop"""
     def __init__(self, condition, body):
         self.condition = condition
         self.body = body
@@ -90,7 +80,6 @@ class WhileNode(ASTNode):
         return f"while ({self.condition}) {self.body}"
 
 class ForNode(ASTNode):
-    """Node representing a for loop"""
     def __init__(self, init, condition, update, body):
         self.init = init
         self.condition = condition
@@ -101,12 +90,10 @@ class ForNode(ASTNode):
         return f"for ({self.init}; {self.condition}; {self.update}) {self.body}"
 
 class NoOpNode(ASTNode):
-    """Node representing a no-operation (empty statement)"""
     def __str__(self):
         return "NoOp"
     
 class StringNode(ASTNode):
-    """Node representing a string literal"""
     def __init__(self, token):
         self.token = token
         self.value = token.value

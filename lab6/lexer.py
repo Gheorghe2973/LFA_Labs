@@ -22,7 +22,6 @@ class Lexer:
         raise Exception(f'Invalid character: {self.current_char}')
     
     def advance(self):
-        """Move to the next character in the input."""
         self.pos += 1
         if self.pos >= len(self.text):
             self.current_char = None
@@ -30,19 +29,16 @@ class Lexer:
             self.current_char = self.text[self.pos]
     
     def peek(self):
-        """Look at the next character without consuming it."""
         peek_pos = self.pos + 1
         if peek_pos >= len(self.text):
             return None
         return self.text[peek_pos]
     
     def skip_whitespace(self):
-        """Skip spaces and tabs."""
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
     
     def number(self):
-        """Parse a number from the input."""
         result = ''
         is_float = False
         
@@ -61,7 +57,6 @@ class Lexer:
 
 
     def string(self):
-        """Parse a string literal enclosed in double quotes."""
         self.advance()  # skip opening quote
         result = ''
         while self.current_char is not None and self.current_char != '"':
@@ -75,7 +70,6 @@ class Lexer:
 
 
     def identifier(self):
-        """Handle identifiers and keywords."""
         result = ''
         
         while self.current_char is not None and (self.current_char.isalnum() or self.current_char == '_'):
@@ -104,7 +98,6 @@ class Lexer:
         return Token(TOKEN_IDENTIFIER, result)
     
     def get_next_token(self):
-        """Lexical analyzer - breaks input into tokens."""
         while self.current_char is not None:
             
             if self.current_char.isspace():
@@ -234,7 +227,6 @@ class Lexer:
 
 
 def tokenize(text):
-    """Utility function to convert text into a list of tokens."""
     lexer = Lexer(text)
     tokens = []
     token = lexer.get_next_token()
